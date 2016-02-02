@@ -7,7 +7,8 @@ Gem::Specification.new do |spec|
   spec.name          = 'waiting'
   spec.version       = Waiting::VERSION
   spec.authors       = ['Henry Muru Paenga']
-  spec.email         = ['henry.murupaenga@xero.com']
+  spec.email         = ['meringu@gmail.com']
+  spec.license       = 'APACHE 2.0'
 
   spec.summary       = "Waits so you don't have to!"
   spec.description   = "Waits so you don't have to!"
