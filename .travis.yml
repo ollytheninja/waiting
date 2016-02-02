@@ -1,4 +1,11 @@
 language: ruby
 rvm:
-  - 2.2.3
+- 2.2.3
 before_install: gem install bundler -v 1.11.2
+deploy:
+  provider: rubygems
+  api_key:
+    secure: "E7JKnSuA9OzcktaOBczmkUS0h4gcgsWPIGpjJmJDfznJdPiV+YTktqBSFvKhi2fYFMFP6ly7IfQsoj44yn9lPyV1jD7AoURKtMKud/yJZ1T4NFKK68S9ZT9Uu0E7AARohdacWBytwqD4BaOHSka38HzPb27iPfWuuDoqK71KFPuBOO12/kx7O+XLxwdgAMd/ZZwwDy+ctriQgI/8qJNXV+vfrPghFDIrY/E/sWqHxcBPRGhyWggzrkKwy13x770hNVvmHpglJrUW002kmEAXcohvTTaKE0zsiJcG6EBjTLOsVvwoIf/SCF2gRTCeWmsVx4Go7IIkc2RhjtQxDbS+LnT0EcmIBX0ffTg8OPFW4AJPIbpoZPEu8TIvk4htznwbPl46ZJbe33SKtRFBvR7c4SH3lTOk/q/LVKB48KNQFKwdHu7UCeevqe5ON05RIaOAX44UGqTeRQKw4dgwRTMLcpS9O/sQt9tWAC2X/y9MjGpgFuAOiT7VJLnTSE9/gyBwq56l3P4yLRDHoiNvEA1jNFKdsydFbKoL0+s1hiCyDnnmmjjRnErXLNf7H0S9QIV3zSKAc1Qosk9+FoiG4Zh78a+HVBLp/SdyKaAFrrqE46y/Wv6DagcHAhEQ4RbiOJBzHmgdzArz4YHlIBiQRxCPvIJ25gxb4Q+uvMml/DpuxBY="
+  gem: waiting
+  on:
+    repo: meringu/waiting
