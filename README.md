@@ -31,6 +31,11 @@ Waiting.default_interval = interval # seconds, defaults to 5
 Waiting.wait do |waiter|
   waiter.done if something
 end
+
+# You can also specify the max_attempts and interval this way
+Waiting.wait(interval: interval, max_attempts: max_attempts) do |waiter|
+  waiter.done if something
+end
 ```
 
 ## Contributing
