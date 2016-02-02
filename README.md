@@ -1,6 +1,6 @@
 # Waiting
 
-Waits so you don't have too!
+Waits so you don't have to!
 
 ## Installation
 

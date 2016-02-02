@@ -9,8 +9,8 @@ Gem::Specification.new do |spec|
   spec.authors       = ['Henry Muru Paenga']
   spec.email         = ['henry.murupaenga@xero.com']
 
-  spec.summary       = "Waits so you don't have too!"
-  spec.description   = "Waits so you don't have too!"
+  spec.summary       = "Waits so you don't have to!"
+  spec.description   = "Waits so you don't have to!"
   spec.homepage      = 'https://github.com/meringu/waiting'
 
   spec.files         = `git ls-files -z`.split("\x0").reject { |f| f.match(%r{^(test|spec|features)/}) }
