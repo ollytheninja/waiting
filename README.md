@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/meringu/waiting.svg?branch=master)](https://travis-ci.org/meringu/waiting)
+
 # Waiting
 
 Waits so you don't have to!
