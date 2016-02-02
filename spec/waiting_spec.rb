@@ -33,7 +33,7 @@ describe Waiting do
             attempt += 1
             w.done if attempt >= attempts
           end
-        end.to raise_error(RuntimeError, "Timed out after #{max_attempts * interval}s")
+        end.to raise_error(Waiting::TimedOutError, "Timed out after #{max_attempts * interval}s")
       end
     end
 

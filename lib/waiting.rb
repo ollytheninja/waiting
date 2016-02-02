@@ -1,3 +1,4 @@
+require 'waiting/timed_out_error'
 require 'waiting/waiter'
 require 'waiting/version'
 
@@ -39,7 +40,9 @@ module Waiting
     attempts = 0
 
     loop do
-      fail "Timed out after #{interval * max_attempts}s" if attempts >= max_attempts
+      if attempts >= max_attempts
+        fail(TimedOutError, "Timed out after #{interval * max_attempts}s")
+      end
       yield(waiter)
       break if waiter.done?
       sleep interval
