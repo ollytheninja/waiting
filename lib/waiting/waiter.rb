@@ -1,5 +1,10 @@
 module Waiting
   class Waiter
+    attr_accessor :attempts
+    attr_accessor :exp_base
+    attr_accessor :interval
+    attr_accessor :max_attempts
+
     # Waiter is in waiting state to start with
     def initialize
       @done = false

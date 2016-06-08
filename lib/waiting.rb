@@ -56,6 +56,12 @@ module Waiting
       if attempts >= max_attempts
         fail(TimedOutError, "Timed out after #{interval * max_attempts}s")
       end
+
+      waiter.attempts = attempts
+      waiter.exp_base = exp_base
+      waiter.interval = interval
+      waiter.max_attempts = max_attempts
+
       yield(waiter)
       break if waiter.done?
       sleep exp_base ** attempts * interval

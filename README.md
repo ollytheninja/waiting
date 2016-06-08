@@ -48,6 +48,14 @@ end
 
 # or specify it as a default
 Waiting.default_exp_base = exp_base # exponential backoff base, defaults to 1
+
+# will log options, and give progress updates if you like  
+Waiting.wait do |waiter|
+  puts waiter.attempts
+  puts waiter.exp_base
+  puts waiter.interval
+  puts waiter.max_attempts
+end
 ```
 
 ## Contributing
