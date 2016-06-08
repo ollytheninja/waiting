@@ -15,6 +15,18 @@ module Waiting
     @@default_interval = interval
   end
 
+  # get the default exponential base
+  # @return [Float] the base for exponential backoff
+  def self.default_exp_base
+    @@default_exp_base ||= 1
+  end
+
+  # set the default exponential base
+  # @param [Float] exp_base the base for exponential backoff
+  def self.default_exp_base=(exp_base)
+    @@default_exp_base = exp_base
+  end
+
   # get the default max attempts
   # @return [Fixnum] the default max attempts
   def self.default_max_attempts
@@ -33,6 +45,7 @@ module Waiting
   # @option opts [Fixnum] :max_attempts number of attempts before failing
   def self.wait(opts = {})
     interval = opts.fetch(:interval) { default_interval }
+    exp_base = opts.fetch(:exp_base) { default_exp_base }
     max_attempts = opts.fetch(:max_attempts) { default_max_attempts }
 
     waiter = Waiter.new
@@ -45,8 +58,9 @@ module Waiting
       end
       yield(waiter)
       break if waiter.done?
-      sleep interval
+      sleep exp_base ** attempts * interval
       attempts += 1
     end
   end
+
 end

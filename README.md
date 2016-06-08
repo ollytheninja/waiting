@@ -38,6 +38,16 @@ end
 Waiting.wait(interval: interval, max_attempts: max_attempts) do |waiter|
   waiter.done if something
 end
+
+# You can do exponential backoff
+# for example, exp_base of 2 and an interval of 1 second,
+# will wait for: 1,2,4,8...
+Waiting.wait(exp_base: 2) do |waiter|
+  waiter.done if something
+end
+
+# or specify it as a default
+Waiting.default_exp_base = exp_base # exponential backoff base, defaults to 1
 ```
 
 ## Contributing

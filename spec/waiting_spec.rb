@@ -2,10 +2,15 @@ require 'spec_helper'
 
 describe Waiting do
   describe '#wait' do
-    let(:max_attempts) { Waiting.default_max_attempts }
-    let(:interval) { Waiting.default_interval }
+    let(:max_attempts) { 5 }
+    let(:interval) { 1 }
 
     subject { described_class }
+
+    before do
+      Waiting.default_max_attempts = max_attempts
+      Waiting.default_interval = interval
+    end
 
     shared_examples_for 'an in time waiter' do
       before do
@@ -37,51 +42,44 @@ describe Waiting do
       end
     end
 
-    context 'defaults' do
+    context 'overriden defaults' do
       context 'attempts < max_attempts' do
-        let(:attempts) { Waiting.default_max_attempts - 1 }
+        let(:attempts) { 4 }
 
         it_behaves_like 'an in time waiter'
       end
 
       context 'attempts == max_attempts' do
-        let(:attempts) { Waiting.default_max_attempts }
+        let(:attempts) { 5 }
 
         it_behaves_like 'an in time waiter'
       end
 
       context 'attempts > max_attempts' do
-        let(:attempts) { Waiting.default_max_attempts + 1 }
+        let(:attempts) { 6 }
 
         it_behaves_like 'a timed out waiter'
       end
     end
 
-    context 'overriden defaults' do
-      let(:max_attempts) { 5 }
-      let(:interval) { 1 }
-
-      before do
-        Waiting.default_max_attempts = max_attempts
-        Waiting.default_interval = interval
-      end
-
-      context 'attempts < max_attempts' do
-        let(:attempts) { Waiting.default_max_attempts - 1 }
-
-        it_behaves_like 'an in time waiter'
-      end
-
+    context 'exponential backoff' do
       context 'attempts == max_attempts' do
-        let(:attempts) { Waiting.default_max_attempts }
+        let(:attempts) { 5 }
 
-        it_behaves_like 'an in time waiter'
-      end
+        before do
+          expect(subject).to receive(:sleep).with(1)
+          expect(subject).to receive(:sleep).with(2)
+          expect(subject).to receive(:sleep).with(4)
+          expect(subject).to receive(:sleep).with(8)
+        end
 
-      context 'attempts > max_attempts' do
-        let(:attempts) { Waiting.default_max_attempts + 1 }
-
-        it_behaves_like 'a timed out waiter'
+        it 'waits' do
+          attempt = 0
+          subject.wait(exp_base: 2, max_attempts: attempts) do |w|
+            attempt += 1
+            w.done if attempt >= attempts
+          end
+        end
       end
     end
   end
