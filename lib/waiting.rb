@@ -42,7 +42,7 @@ module Waiting
   # get the default max interval
   # @return [Fixnum] the default max interval
   def self.default_max_interval
-    @@default_max_interval ||= NIL
+    @@default_max_interval ||= nil
   end
 
   # set the default max interval
@@ -74,11 +74,13 @@ module Waiting
       waiter.exp_base = exp_base
       waiter.interval = interval
       waiter.max_attempts = max_attempts
+      waiter.max_interval = max_interval
 
       yield(waiter)
       break if waiter.done?
+
       time = exp_base ** attempts * interval
-      if max_interval
+      unless max_interval.nil?
         time = [time, max_interval].min
       end
 
